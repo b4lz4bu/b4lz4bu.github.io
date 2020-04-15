@@ -10,7 +10,7 @@ title: Balzabu
 email: dbalzano@protonmail.com
 description: > # this means to ignore newlines until "baseurl:"
   I always loved IT, I can't do anything about it!
-baseurl: "/balzabu_blog" # the subpath of your site, e.g. /blog
+baseurl: "" # the subpath of your site, e.g. /blog
 url: "b4lz4bu.github.io" # the base hostname & protocol for your site
 github_username:  b4lz4bu
 
